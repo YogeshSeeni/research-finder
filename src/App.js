@@ -14,7 +14,6 @@ import Navbar from "./components/Navbar";
 //   apiKey: process.env.REACT_
 // }
 function App() {
-  console.log(process.env.REACT_APP_apiKey);
   return (
     <Router>
       < Navbar />
