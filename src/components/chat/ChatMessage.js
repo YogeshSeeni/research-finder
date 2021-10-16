@@ -10,11 +10,12 @@ function ChatMessage (props) {
         <div class={`level-${props.alignment}`}>
           <div class="level-item">
             <article class="media">
-              <figure className={`media-${props.alignment}`}>
+              {props.alignment == 'left' && <figure className={`media-${props.alignment}`}>
                 <p class="image is-64x64">
                   <img src={props.image}/>
                 </p>
-              </figure>
+              </figure>}
+
               <div class="media-content">
                 <div class="content">
                   <p>
@@ -24,6 +25,11 @@ function ChatMessage (props) {
                   </p>
                 </div>
               </div>
+              {props.alignment == 'right' && <figure className={`media-${props.alignment}`}>
+                <p class="image is-64x64">
+                  <img src={props.image}/>
+                </p>
+              </figure>}
             </article>
           </div>
         </div>
