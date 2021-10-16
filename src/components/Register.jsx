@@ -21,7 +21,7 @@ export default function Register() {
   }
 
   async function handleSubmit() {
-    try{
+    try {
       const registerResp = await axios({
         method: "post",
         url: "https://treasurehacks2021.pythonanywhere.com/v1/user/register",
@@ -32,11 +32,11 @@ export default function Register() {
             first_name: firstNameText,
             last_name: lastNameText,
             field_of_study: fieldOfStudyText,
-            experience: experienceText
-          }
-        }
+            experience: experienceText,
+          },
+        },
       });
-      if (registerResp.data.success){
+      if (registerResp.data.success) {
         setSuccessAlert(true);
         setFailureMessageBool(false);
       } else {
@@ -51,11 +51,7 @@ export default function Register() {
       setFailureMessageBool(true);
       setFailureMessage(error);
     }
-
-
-
-
-  };
+  }
 
   return (
     <div>

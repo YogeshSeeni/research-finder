@@ -19,7 +19,10 @@ export default function Navbar() {
     {cookies.get("uuid") ? <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
       <a class="navbar-item" href="/userhome">
-        Home
+        Chat
+      </a>
+      <a class="navbar-item" href="/profile">
+        Profile
       </a>
     </div>
     

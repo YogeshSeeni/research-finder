@@ -15,6 +15,7 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import UserHome from './components/UserHome';
 import Logout from './components/Logout';
+import Profile from './components/Profile';
 
 
 // const firebaseConfig = {
@@ -47,6 +48,9 @@ function App() {
           </Route>
           <Route exact path="/userhome">
             <UserHome />
+          </Route>
+          <Route exact path="/profile">
+            <Profile />
           </Route>
           <Route exact path="/logout">
             <Logout />
