@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,7 +11,11 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 
+// const firebaseConfig = {
+//   apiKey: process.env.REACT_
+// }
 function App() {
+  console.log(process.env.REACT_APP_apiKey);
   return (
     <Router>
       < Navbar />
