@@ -13,6 +13,7 @@ function Chat (props) {
   const db = getDatabase();
   const chatRef = ref(db, 'Messages/' + props.chat_id);
 
+  let userData = {};
 
   async function sendChatMessage () {
     const resp = await axios ({
@@ -35,17 +36,31 @@ function Chat (props) {
     setCurMessage(event.target.value);
   }
 
+  async function updateUserDataIfNeeded(user) {
+    if (!userData[user]){
+        const thing = await axios ({
+           method:"post",
+           url: "https://treasurehacks2021.pythonanywhere.com/v1/user/" + user
+        });
+        if (thing.data.success){
+          userData[user] = thing.data.json;
+        }
+    }
+  }
+
   const fetchChatMessagesHandler = useCallback(async () => {
 
-    onChildAdded(chatRef, (data) => {
+    onChildAdded(chatRef, async (data) => {
       const cur_msg = data.val()
+      await updateUserDataIfNeeded(cur_msg.sender);
       setChatMessages((prevState) => {
         return [...prevState, {
           id: data.key,
           message: cur_msg.message,
-          sender: cur_msg.sender,
+          sender: userData[cur_msg.sender] ? userData[cur_msg.sender]['first_name'] + " " + userData[cur_msg.sender]['last_name'] : cur_msg.sender,
+          uuid: cur_msg.sender,
           time: cur_msg.time,
-          image: "https://i.pcmag.com/imagery/reviews/03aizylUVApdyLAIku1AvRV-39.1605559903.fit_scale.size_1028x578.png"
+          image: userData[cur_msg.sender] ? userData[cur_msg.sender]['profile_pic'] : "https://i.pcmag.com/imagery/reviews/03aizylUVApdyLAIku1AvRV-39.1605559903.fit_scale.size_1028x578.png"
         }]
       })
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
@@ -89,7 +104,7 @@ function Chat (props) {
     <Container style={{ height: '100%', width: '100%' }}>
       <Box style={{height: '70vh', overflowY: 'auto'}}>
         {chatMessages.map((message) => {
-          return <ChatMessage key={message.id} image={message.image} username={message.sender} time_since_message={message.time} body={message.message} alignment={message.sender===props.sender ? 'right' : 'left'}/>
+          return <ChatMessage key={message.id} image={message.image} username={message.sender} time_since_message={message.time} body={message.message} alignment={message.uuid===props.sender ? 'right' : 'left'}/>
         })}
         <div ref={messagesEndRef} />
       </Box>
