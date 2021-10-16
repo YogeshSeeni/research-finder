@@ -15,7 +15,7 @@ export default function Login() {
   if (cookies.get("uuid")) {
     history.push("/userhome");
   }
-  
+
   const handleSubmit = () => {
     axios
       .post("https://treasurehacks2021.pythonanywhere.com/v1/user/login", {
@@ -32,6 +32,7 @@ export default function Login() {
           }
         } else {
           cookies.set("uuid", response.data.json.uuid, {path: "/"});
+          cookies.set("id_token", response.data.json.id_token, {path:"/"});
           history.push("/userhome");
         }
         console.log(response);

@@ -1,24 +1,35 @@
 import React from 'react';
 import '../bulma.css';
+import {Box} from 'react-bulma-components';
 
 function ChatMessage (props) {
   return (
-    <article class="media">
-      <figure class="media-left">
-        <p class="image is-64x64">
-          <img src={props.image}/>
-        </p>
-      </figure>
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong>{props.username}</strong> <small>{props.time_since_message}</small>
-            <br></br>
-            {props.body}
-          </p>
+
+    <Box style={{textAlign: props.alignment}}>
+      <div class='content'>
+        <div class={`level-${props.alignment}`}>
+          <div class="level-item">
+            <article class="media">
+              <figure className={`media-${props.alignment}`}>
+                <p class="image is-64x64">
+                  <img src={props.image}/>
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{props.username}</strong> <small>{props.time_since_message}</small>
+                    <br></br>
+                    <p style={{width: '20vw'}}>{props.body}</p>
+                  </p>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
-    </article>
+    </Box>
+
   );
 }
 
