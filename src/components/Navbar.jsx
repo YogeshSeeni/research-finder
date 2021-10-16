@@ -21,7 +21,7 @@ export default function Navbar() {
         Home
       </a>
     </div>
-
+    
     <div class="navbar-start">
       <div class="navbar-item">
         <div class="buttons">
