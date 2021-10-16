@@ -1,6 +1,14 @@
 import React from "react";
+import Cookies from "universal-cookie";
+import { useHistory } from "react-router";
 
 export default function UserHome() {
+  const cookies = new Cookies();
+  const history = new useHistory();
+
+  if (!cookies.get("uuid")) {
+    history.push("/");
+  }
   return (
     <article class="media">
       <figure class="media-left">

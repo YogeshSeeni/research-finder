@@ -1,6 +1,8 @@
 import React from "react";
+import Cookies from "universal-cookie";
 
 export default function Navbar() {
+  const cookies = new Cookies();
   return (
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -14,8 +16,23 @@ export default function Navbar() {
       <span aria-hidden="true"></span>
     </a>
   </div>
-
-  <div id="navbarBasicExample" class="navbar-menu">
+    {cookies.get("uuid") ? <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-end">
+      <a class="navbar-item" href="/userhome">
+        Home
+      </a>
+    </div>
+    
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-light" href="/logout">
+            Logout
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>: <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
       <a class="navbar-item" href="/">
         Home
@@ -34,7 +51,8 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  </div>
+  </div>}
+  
 </nav>
   );
 }
