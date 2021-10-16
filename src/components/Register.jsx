@@ -20,44 +20,41 @@ export default function Register() {
     history.push("/userhome");
   }
 
-  const handleSubmit = () => {
-    axios
-      .post("https://treasurehacks2021.pythonanywhere.com/v1/user/register", {
-        email: emailText,
-        password: passwordText,
-      })
-      .then((response) => {
-        if (response.data.success) {
-          const resp = axios({
-            method: "patch",
-            url:
-              "https://treasurehacks2021.pythonanywhere.com/v1/user/" +
-              response.data.json.uuid,
-            data: {
-              first_name: firstNameText,
-              last_name: lastNameText,
-              field_of_study: fieldOfStudyText,
-              experience: experienceText,
-            },
-            headers: {
-              Authorization: cookies.get("id_token"),
-            },
-          }).then(console.log(resp));
-          setSuccessAlert(true);
-          setFailureMessageBool(false);
-        } else {
-          setFailureMessageBool(true);
-          if (response.data.warnings.length > 0) {
-            setFailureMessage(response.data.warnings[0]);
-          } else {
-            setFailureMessage(response.data.errors[0]);
+  async function handleSubmit() {
+    try{
+      const registerResp = await axios({
+        method: "post",
+        url: "https://treasurehacks2021.pythonanywhere.com/v1/user/register",
+        data: {
+          email: emailText,
+          password: passwordText,
+          user_data: {
+            first_name: firstNameText,
+            last_name: lastNameText,
+            field_of_study: fieldOfStudyText,
+            experience: experienceText
           }
         }
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
       });
+      if (registerResp.data.success){
+        setSuccessAlert(true);
+        setFailureMessageBool(false);
+      } else {
+        setFailureMessageBool(true);
+        if (registerResp.data.warnings.length > 0) {
+          setFailureMessage(registerResp.data.warnings[0]);
+        } else {
+          setFailureMessage(registerResp.data.errors[0]);
+        }
+      }
+    } catch (error) {
+      setFailureMessageBool(true);
+      setFailureMessage(error);
+    }
+
+
+
+
   };
 
   return (
