@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
+
 
 export default function Login() {
   const [emailText, setEmailText] = useState("");
   const [passwordText, setPasswordText] = useState("");
   const [failureMessageBool, setFailureMessageBool] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
+  const history = useHistory();
 
   const handleSubmit = () => {
     axios
@@ -21,6 +24,8 @@ export default function Login() {
           } else {
             setFailureMessage(response.data.errors[0]);
           }
+        } else {
+          history.push("/userhome");
         }
         console.log(response);
       })

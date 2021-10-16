@@ -9,6 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
+import UserHome from './components/UserHome';
 
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <Register />
+          </Route>
+          <Route exact path="/userhome">
+            <UserHome />
           </Route>
           <Route exact path="/">
             <Home />
