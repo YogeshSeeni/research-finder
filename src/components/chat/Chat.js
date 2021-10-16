@@ -48,6 +48,12 @@ function Chat (props) {
     }
   }
 
+  function getDateTimeFromTimestamp(unixTimeStamp) {
+    let date = new Date(unixTimeStamp);
+    return ('0' + date.getDate()).slice(-2) + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear() + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+  }
+
+
   const fetchChatMessagesHandler = useCallback(async () => {
 
     onChildAdded(chatRef, async (data) => {
@@ -59,7 +65,7 @@ function Chat (props) {
           message: cur_msg.message,
           sender: userData[cur_msg.sender] ? userData[cur_msg.sender]['first_name'] + " " + userData[cur_msg.sender]['last_name'] : cur_msg.sender,
           uuid: cur_msg.sender,
-          time: cur_msg.time,
+          time: getDateTimeFromTimestamp(+cur_msg.time * 1000),
           image: userData[cur_msg.sender] ? userData[cur_msg.sender]['profile_pic'] : "https://i.pcmag.com/imagery/reviews/03aizylUVApdyLAIku1AvRV-39.1605559903.fit_scale.size_1028x578.png"
         }]
       })
