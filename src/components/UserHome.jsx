@@ -2,6 +2,7 @@ import React from "react";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router";
 import Chat from './chat/Chat';
+import User from "./chat/User";
 
 export default function UserHome() {
   const cookies = new Cookies();
@@ -12,11 +13,7 @@ export default function UserHome() {
   }
   return (
     <article class="media">
-      <figure class="media-left">
-        <p class="image is-64x64">
-          <img src="https://bulma.io/images/placeholders/128x128.png" />
-        </p>
-      </figure>
+      <User name="Yogesh Seenichamy" field="Expert in everything" imageURL="https://pbs.twimg.com/profile_images/1387352002020081669/qo9a2Ics.jpg" experience="Has infinite experience in everything"/>
       <div class="media-content">
         <div class="content">
           <br></br>
@@ -41,9 +38,6 @@ export default function UserHome() {
             </a>
           </div>
         </nav>
-      </div>
-      <div class="media-right">
-        <button class="delete"></button>
       </div>
     </article>
   );

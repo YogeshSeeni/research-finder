@@ -4,8 +4,12 @@ import Cookies from "universal-cookie";
 import { useHistory } from "react-router";
 
 export default function Register() {
+  const [firstNameText, setFirstNameText] = useState("");
+  const [lastNameText, setLastNameText] = useState("");
   const [emailText, setEmailText] = useState("");
   const [passwordText, setPasswordText] = useState("");
+  const [fieldOfStudyText, setFieldOfStudyText] = useState("");
+  const [experienceText, setExperienceText] = useState("");
   const [successAlert, setSuccessAlert] = useState(false);
   const [failureMessageBool, setFailureMessageBool] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
@@ -24,7 +28,22 @@ export default function Register() {
       })
       .then((response) => {
         if (response.data.success) {
-          setSuccessAlert(true)
+          const resp = axios({
+            method: "patch",
+            url:
+              "https://treasurehacks2021.pythonanywhere.com/v1/user/" +
+              response.data.json.uuid,
+            data: {
+              first_name: firstNameText,
+              last_name: lastNameText,
+              field_of_study: fieldOfStudyText,
+              experience: experienceText,
+            },
+            headers: {
+              Authorization: cookies.get("id_token"),
+            },
+          }).then(console.log(resp));
+          setSuccessAlert(true);
           setFailureMessageBool(false);
         } else {
           setFailureMessageBool(true);
@@ -53,6 +72,34 @@ export default function Register() {
       ) : null}
       <p class="is-size-1 has-text-centered">REGISTER</p>
       <div class="field mx-6 mt-3">
+        <label class="label">First Name:</label>
+        <div class="control ">
+          <input
+            class="input"
+            type="text"
+            placeholder="First name input"
+            value={firstNameText}
+            onChange={(e) => {
+              setFirstNameText(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <div class="field mx-6 mt-3">
+        <label class="label">Last Name:</label>
+        <div class="control ">
+          <input
+            class="input"
+            type="text"
+            placeholder="Last name input"
+            value={lastNameText}
+            onChange={(e) => {
+              setLastNameText(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <div class="field mx-6 mt-3">
         <label class="label">Email:</label>
         <div class="control ">
           <input
@@ -64,7 +111,7 @@ export default function Register() {
               setEmailText(e.target.value);
             }}
           />
-        </div>{" "}
+        </div>
       </div>
       <div class="field mx-6 mt-3">
         <label class="label">Password:</label>
@@ -78,6 +125,33 @@ export default function Register() {
               setPasswordText(e.target.value);
             }}
           />
+        </div>
+      </div>
+      <div class="field mx-6 mt-3">
+        <label class="label">Field of Study:</label>
+        <div class="control ">
+          <input
+            class="input"
+            type="text"
+            placeholder="Field of Study input"
+            value={fieldOfStudyText}
+            onChange={(e) => {
+              setFieldOfStudyText(e.target.value);
+            }}
+          />
+        </div>
+      </div>
+      <div class="field mx-6 mt-3">
+        <label class="label">Experience:</label>
+        <div class="control">
+          <textarea
+            class="textarea"
+            placeholder="Please type a brief summary of your experience to your field of study"
+            value={experienceText}
+            onChange={(e) => {
+              setExperienceText(e.target.value);
+            }}
+          ></textarea>
         </div>
       </div>
       <div class="has-text-centered">
