@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from 'react-router-dom';
+import Cookies from "universal-cookie";
 
 
 export default function Login() {
@@ -9,7 +10,12 @@ export default function Login() {
   const [failureMessageBool, setFailureMessageBool] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
   const history = useHistory();
+  const cookies = new Cookies();
 
+  if (cookies.get("uuid")) {
+    history.push("/userhome");
+  }
+  
   const handleSubmit = () => {
     axios
       .post("https://treasurehacks2021.pythonanywhere.com/v1/user/login", {
@@ -25,6 +31,7 @@ export default function Login() {
             setFailureMessage(response.data.errors[0]);
           }
         } else {
+          cookies.set("uuid", response.data.json.uuid, {path: "/"});
           history.push("/userhome");
         }
         console.log(response);

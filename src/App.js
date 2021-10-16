@@ -10,6 +10,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import UserHome from './components/UserHome';
+import Logout from './components/Logout';
 
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route exact path="/userhome">
             <UserHome />
+          </Route>
+          <Route exact path="/logout">
+            <Logout />
           </Route>
           <Route exact path="/">
             <Home />

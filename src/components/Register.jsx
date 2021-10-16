@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Cookies from "universal-cookie";
+import { useHistory } from "react-router";
 
 export default function Register() {
   const [emailText, setEmailText] = useState("");
@@ -7,6 +9,12 @@ export default function Register() {
   const [successAlert, setSuccessAlert] = useState(false);
   const [failureMessageBool, setFailureMessageBool] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
+  const cookies = new Cookies();
+  const history = new useHistory();
+
+  if (cookies.get("uuid")) {
+    history.push("/userhome");
+  }
 
   const handleSubmit = () => {
     axios
