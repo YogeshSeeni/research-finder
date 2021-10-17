@@ -35,7 +35,7 @@ export default function UserHome(props) {
   }
   return (
     <article class="media">
-      <div class='media-right'>
+      <div class='media-right'  style={{width: '25%'}}>
         <UserList onInitiateChat={handleStartChat}/>
       </div>
       <div class="media-content">
