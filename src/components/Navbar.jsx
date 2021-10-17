@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 
 export default function Navbar() {
   const cookies = new Cookies();
+
   return (
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -16,7 +17,7 @@ export default function Navbar() {
       <span aria-hidden="true"></span>
     </a>
   </div>
-    {cookies.get("uuid") ? <div id="navbarBasicExample" class="navbar-menu">
+    {cookies.get("uuid") !=  undefined ? <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
       <a class="navbar-item" href="/userhome">
         Chat
@@ -38,7 +39,8 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  </div>: <div id="navbarBasicExample" class="navbar-menu">
+  </div>: null}
+  {cookies.get("uuid") == undefined ? <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-end">
       <a class="navbar-item" href="/">
         Home
@@ -57,8 +59,7 @@ export default function Navbar() {
         </div>
       </div>
     </div>
-  </div>}
-  
+  </div> : null} 
 </nav>
   );
 }

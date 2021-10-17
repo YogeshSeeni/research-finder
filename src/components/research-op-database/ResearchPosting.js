@@ -2,7 +2,7 @@ import React from 'react';
 import '../bulma.css';
 import {Box} from 'react-bulma-components';
 
-function ResearchPosting (props) {
+export default function ResearchPosting (props) {
   return (
     <div class="card">
       <header class="card-header">
@@ -16,7 +16,7 @@ function ResearchPosting (props) {
         </div>
       </div>
       <footer class="card-footer">
-        <button class="button is-primary card-footer-item">Apply</a>
+        <button class="button is-primary card-footer-item">Apply</button>
       </footer>
     </div>
   )

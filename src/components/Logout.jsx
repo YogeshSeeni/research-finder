@@ -7,7 +7,9 @@ export default function Logout() {
     const history = new useHistory();
 
     cookies.remove("uuid");
+    cookies.remove("id_token");
     history.push("/");
+    window.location.reload();
 
     return (
         <div>

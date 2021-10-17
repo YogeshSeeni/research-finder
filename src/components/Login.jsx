@@ -34,6 +34,7 @@ export default function Login() {
           cookies.set("uuid", response.data.json.uuid, {path: "/"});
           cookies.set("id_token", response.data.json.id_token, {path:"/"});
           history.push("/userhome");
+          window.location.reload();
         }
         console.log(response);
       })
