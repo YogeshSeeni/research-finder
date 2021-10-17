@@ -3,7 +3,7 @@ import React from 'react'
 export default function User(props) {
 
     function initiateChat(){
-      props.onInitiateChat(props.uuid)
+      props.onInitiateChat(props.uuid, props.first_name + ' ' + props.last_name)
     }
     return (
       <div class="card" style={{width: '100%'}}>

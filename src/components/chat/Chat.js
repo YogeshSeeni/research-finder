@@ -122,7 +122,10 @@ function Chat (props) {
 
   return (
     <Container style={{ height: '100%', width: '100%' }}>
-      <Box style={{height: '70vh', overflowY: 'auto'}}>
+      <Box>
+          <p>{`Now chatting with: ${props.name}`}</p>
+      </Box>
+      <Box style={{height: '60vh', overflowY: 'auto'}}>
         <ul>
           {chatMessages.map((message) => {
             return <ChatMessage key={message.id} image={message.image} username={message.sender} time_since_message={message.time} body={message.message} alignment={message.uuid===props.sender ? 'right' : 'left'}/>
