@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div>
-      <section class="hero is-danger is-fullheight-with-navbar">
+      <section class="hero is-success is-fullheight-with-navbar">
         <div class="hero-body">
           <div class="">
             <p class="title">Hey There.</p>
