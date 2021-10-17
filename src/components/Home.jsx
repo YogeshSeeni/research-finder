@@ -15,8 +15,8 @@ export default function Home() {
       <section class="hero is-danger is-fullheight-with-navbar">
         <div class="hero-body">
           <div class="">
-            <p class="title">Fullheight hero</p>
-            <p class="subtitle">Fullheight subtitle</p>
+            <p class="title">Hey There.</p>
+            <p class="subtitle">This is a website to help connect students with professionals. Start by registering, so you can explore a multitude of research opportunities.</p>
           </div>
         </div>
       </section>

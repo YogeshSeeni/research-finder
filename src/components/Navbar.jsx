@@ -1,5 +1,6 @@
 import React from "react";
 import Cookies from "universal-cookie";
+import logo from "./Research-Finder-Logo.png"
 
 export default function Navbar() {
   const cookies = new Cookies();
@@ -7,14 +8,11 @@ export default function Navbar() {
   return (
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
+        <a class="navbar-item" href="https://github.com/YogeshSeeni/research-finder/tree/2f42b45a3c17bf704f9f58a1f3546e602b3fc057">
           <img
-            src="https://bulma.io/images/bulma-logo.png"
-            width="112"
-            height="28"
+            src={logo}
           />
         </a>
-
         <a
           role="button"
           class="navbar-burger"

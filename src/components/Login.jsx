@@ -33,7 +33,7 @@ export default function Login() {
         } else {
           cookies.set("uuid", response.data.json.uuid, {path: "/"});
           cookies.set("id_token", response.data.json.id_token, {path:"/"});
-          history.push("/userhome");
+          history.push("/projects");
           window.location.reload();
         }
         console.log(response);
