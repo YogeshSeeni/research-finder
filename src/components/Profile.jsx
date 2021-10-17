@@ -60,14 +60,15 @@ export default function Profile() {
       });
       if (resp.data.success) {
         const formData = new FormData();
-		    formData.append('profile-pic', selectedFile);
-        console.log(formData.get('profile-pic'));
+		    formData.append('profile_pic', selectedFile);
+        console.log(formData.get('profile_pic'));
         const fileResp = await axios({
           method: "post",
           url: "https://treasurehacks2021.pythonanywhere.com/v1/user/" + cookies.get("uuid") + "/upload-profile",
           data: formData,
           headers: {
             Authorization: cookies.get("id_token"),
+            "Content-Type": "multipart/form-data"
           },
         });
         console.log(fileResp);
@@ -112,7 +113,7 @@ export default function Profile() {
           </label>
         </div>
       </div>
-      
+
       <div class="field mx-6 mt-3">
         <label class="label">First Name:</label>
         <div class="control ">

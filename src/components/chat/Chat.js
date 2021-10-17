@@ -69,7 +69,12 @@ function Chat (props) {
           image: userData[cur_msg.sender] ? userData[cur_msg.sender]['profile_pic'] : "https://i.pcmag.com/imagery/reviews/03aizylUVApdyLAIku1AvRV-39.1605559903.fit_scale.size_1028x578.png"
         }]
       })
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+      try{
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+      } catch {
+        
+      }
+
     });
     /*
     const resp = await axios ({
