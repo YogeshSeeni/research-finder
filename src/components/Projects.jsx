@@ -195,7 +195,7 @@ export default function Projects() {
           //         time="11:09 PM - 1 Jan 2016"
           // />
             try{
-              return <Project key = {project['project_id']} imgURL={userData[project.user_created]['profile_pic']} name={userData[project.user_created]['first_name'] + " " + userData[project.user_created]['last_name']} field={userData[project.user_created]['field_of_study']} description={project.description} time={getDateTimeFromTimestamp(+project.iat * 1000)} title={project.title}/>
+              return <Project key = {project['project_id']}  id = {project['project_id']} imgURL={userData[project.user_created]['profile_pic']} name={userData[project.user_created]['first_name'] + " " + userData[project.user_created]['last_name']} field={userData[project.user_created]['field_of_study']} description={project.description} time={getDateTimeFromTimestamp(+project.iat * 1000)} title={project.title}/>
             } catch (error){
               console.log(userData);
             }
