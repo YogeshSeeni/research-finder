@@ -2,7 +2,8 @@ import React from "react";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router";
 import Chat from './chat/Chat';
-import User from "./chat/User";
+import UserList from "./user/UserList";
+import {Box} from 'react-bulma-components';
 
 export default function UserHome() {
   const cookies = new Cookies();
@@ -13,7 +14,9 @@ export default function UserHome() {
   }
   return (
     <article class="media">
-      <User name="Yogesh Seenichamy" field="Expert in everything" imageURL="https://pbs.twimg.com/profile_images/1387352002020081669/qo9a2Ics.jpg" experience="Has infinite experience in everything"/>
+      <div class='media-right'>
+        <UserList />
+      </div>
       <div class="media-content">
         <div class="content">
           <br></br>
