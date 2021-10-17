@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Project from "./Project";
-import ResearchPosting from "./research-op-database/ResearchPosting";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import { useHistory } from "react-router";
@@ -12,11 +11,20 @@ export default function Projects() {
   const [successAlert, setSuccessAlert] = useState(false);
   const [failureMessageBool, setFailureMessageBool] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
+  const [projects, setProjects] = useState([]);
   const cookies = new Cookies();
   const history = new useHistory();
 
   if (!cookies.get("uuid")) {
     history.push("/");
+  }
+
+  async function userData(id) {
+      const resp = await axios({
+          method: "post",
+          url: "https://treasurehacks2021.pythonanywhere.com/v1/user/" + cookies.get("uuid")
+      });
+      return resp.data.json;
   }
 
   async function postProject() {
@@ -50,6 +58,25 @@ export default function Projects() {
       setFailureMessage(error);
     }
   }
+  const getProjects = useCallback(() => {
+    const data = axios ({
+      method: "post",
+      url: "https://treasurehacks2021.pythonanywhere.com/v1/project"
+    }).then(data => {
+      for (var key in data.data.json){
+        setProjects((prevState) => {
+          return [data.data.json[key], ...prevState]
+        })
+      }
+      console.log(data);
+      console.log(projects)
+    });
+  }, [])
+
+  useEffect(() => {
+    getProjects();
+  }, [getProjects]);
+
   return (
     <div>
       <div class={"modal" + showPopup}>
@@ -113,7 +140,6 @@ export default function Projects() {
         </div>
       </div>
 
-      {/* <ResearchPosting title="Most Amazing Research" body="Here you will do the most exciting research."/> */}
       <div class="has-text-centered mt-3">
         <button
           class="button is-link"
@@ -123,55 +149,16 @@ export default function Projects() {
         </button>
       </div>
 
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
-      <Project
-        imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
-        name="Professor Scott"
-        field="Computer Science"
-        description="Work on new exciting machine learning technology!!"
-        time="11:09 PM - 1 Jan 2016"
-      />
+      {projects.map((project) => (
+        //   <Project
+        //         imgURL="https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/money-heist-season-4-professor_2.jpg"
+        //         name="Professor Scott"
+        //         field="Computer Science"
+        //         description="Work on new exciting machine learning technology!!"
+        //         time="11:09 PM - 1 Jan 2016"
+        // />
+          <Project imgURL={userData(project.user_created).profile_pic} name={userData(project.user_created).first_name + " " + userData(project.user_created).last_name} field={userData(project.user_created).field_of_study} description={project.description} time={project.iat}/>
+      ))}
     </div>
   );
 }
