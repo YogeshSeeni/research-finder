@@ -1,6 +1,10 @@
 import React from 'react'
 
 export default function User(props) {
+
+    function initiateChat(){
+      props.onInitiateChat(props.uuid)
+    }
     return (
       <div class="card" style={{width: '100%'}}>
         <div class="card-content">
@@ -24,7 +28,7 @@ export default function User(props) {
         </div>
 
         <footer class="card-footer">
-          <button class="button is-primary card-footer-item">Chat</button>
+          <button class="button is-primary card-footer-item" onClick={initiateChat}>Chat</button>
         </footer>
 
 

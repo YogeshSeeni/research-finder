@@ -32,6 +32,8 @@ function Chat (props) {
   }
 
 
+
+
   const changeChatHandler = (event) => {
     setCurMessage(event.target.value);
   }
@@ -53,6 +55,9 @@ function Chat (props) {
     return ('0' + date.getDate()).slice(-2) + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear() + ' ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
   }
 
+  const clearChat = useCallback(() => {
+    setChatMessages([]);
+  }, [props.chat_id]);
 
   const fetchChatMessagesHandler = useCallback(async () => {
 
@@ -72,7 +77,7 @@ function Chat (props) {
       try{
         messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
       } catch {
-        
+
       }
 
     });
@@ -105,7 +110,11 @@ function Chat (props) {
     setChatMessages(initialMessages);
     */
 
-  }, [])
+  }, [props.chat_id])
+
+  useEffect(() => {
+    clearChat();
+  }, [clearChat])
 
   useEffect(() => {
     fetchChatMessagesHandler();

@@ -35,7 +35,7 @@ function UserList (props) {
       {userData.map((user) => {
         return (
           <Box>
-            <User first_name={user.first_name} last_name={user.last_name} field_of_study={user.field_of_study} image={user.profile_pic} experience={user.experience}/>
+            <User key={user.uuid} onInitiateChat={props.onInitiateChat} first_name={user.first_name} last_name={user.last_name} field_of_study={user.field_of_study} image={user.profile_pic} experience={user.experience} uuid={user.uuid}/>
           </Box>
         )
 
