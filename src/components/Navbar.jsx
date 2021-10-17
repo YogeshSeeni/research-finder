@@ -6,60 +6,74 @@ export default function Navbar() {
 
   return (
     <nav class="navbar is-light" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
-    </a>
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img
+            src="https://bulma.io/images/bulma-logo.png"
+            width="112"
+            height="28"
+          />
+        </a>
 
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-    {cookies.get("uuid") !=  undefined ? <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-end">
-      <a class="navbar-item" href="/userhome">
-        Chat
-      </a>
-      <a class="navbar-item" href="/profile">
-        Profile
-      </a>
-      <a class="navbar-item" href="/projects">
-        Projects
-      </a>
-    </div>
-    
-    <div class="navbar-start">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-light" href="/logout">
-            Logout
-          </a>
-        </div>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-    </div>
-  </div>: null}
-  {cookies.get("uuid") == undefined ? <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-end">
-      <a class="navbar-item" href="/">
-        Home
-      </a>
-    </div>
-    
-    <div class="navbar-start">
-      <div class="navbar-item">
-        <div class="buttons">
-          <a class="button is-primary mr-2" href="/register">
-            <strong>Register</strong>
-          </a>
-          <a class="button is-light" href="/login">
-            Login
-          </a>
+      {cookies.get("uuid") != undefined ? (
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start ml-0">
+          <a class="navbar-item" href="/projects">
+              Projects
+            </a>
+            <a class="navbar-item" href="/userhome">
+              Chat
+            </a>
+          </div>
+
+          <div class="navbar-end mr-0">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-light" href="/profile">
+                  Profile
+                </a>
+                <a class="button is-light" href="/logout">
+                  Logout
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div> : null} 
-</nav>
+      ) : null}
+      {cookies.get("uuid") == undefined ? (
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start ml-0">
+            <a class="navbar-item" href="/">
+              Home
+            </a>
+          </div>
+
+          <div class="navbar-end mr-0">
+            <div class="navbar-item">
+              <div class="buttons">
+                <a class="button is-primary" href="/register">
+                  <strong>Register</strong>
+                </a>
+                <a class="button is-light" href="/login">
+                  Login
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </nav>
   );
 }
