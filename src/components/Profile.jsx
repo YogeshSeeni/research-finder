@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import Cookies from "universal-cookie/es6";
 import axios from "axios";
+import "../index.css";
 
 export default function Profile() {
   const cookies = new Cookies();
@@ -14,9 +15,14 @@ export default function Profile() {
   const [successAlert, setSuccessAlert] = useState(false);
   const [failureMessageBool, setFailureMessageBool] = useState(false);
   const [failureMessage, setFailureMessage] = useState("");
+  const [selectedFile, setSelectedFile] = useState();
   if (!cookies.get("uuid")) {
     history.push("/");
   }
+
+  const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+	};
 
   async function getData() {
     const resp = await axios({
@@ -36,43 +42,56 @@ export default function Profile() {
   }, []);
 
   async function updateData() {
-      try {
-        const resp = await axios({
-            method: "patch",
-            url: "https://treasurehacks2021.pythonanywhere.com/v1/user/" + cookies.get("uuid"),
-            data: {
-                first_name: firstName,
-                last_name: lastName,
-                field_of_study: fieldOfStudy,
-                experience: experience,
-            },
-            headers: {
-                Authorization: cookies.get("id_token")
-            }
+    try {
+      const resp = await axios({
+        method: "patch",
+        url:
+          "https://treasurehacks2021.pythonanywhere.com/v1/user/" +
+          cookies.get("uuid"),
+        data: {
+          first_name: firstName,
+          last_name: lastName,
+          field_of_study: fieldOfStudy,
+          experience: experience,
+        },
+        headers: {
+          Authorization: cookies.get("id_token"),
+        },
+      });
+      if (resp.data.success) {
+        const formData = new FormData();
+		    formData.append('profile-pic', selectedFile);
+        console.log(formData.get('profile-pic'));
+        const fileResp = await axios({
+          method: "post",
+          url: "https://treasurehacks2021.pythonanywhere.com/v1/user/" + cookies.get("uuid") + "/upload-profile",
+          data: formData,
+          headers: {
+            Authorization: cookies.get("id_token"),
+          },
         });
-        if (resp.data.success) {
-            setSuccessAlert(true);
-            setFailureMessageBool(false);
+        console.log(fileResp);
+        setSuccessAlert(true);
+        setFailureMessageBool(false);
+      } else {
+        setSuccessAlert(false);
+        setFailureMessageBool(true);
+        if (resp.data.warnings.length > 0) {
+          setFailureMessage(resp.data.warnings[0]);
         } else {
-            setSuccessAlert(false);
-            setFailureMessageBool(true);
-            if (resp.data.warnings.length > 0) {
-            setFailureMessage(resp.data.warnings[0]);
-            } else {
-            setFailureMessage(resp.data.errors[0]);
-            }
+          setFailureMessage(resp.data.errors[0]);
         }
-      } catch (error) {
-          setSuccessAlert(false);
-          setFailureMessageBool(true);
-          setFailureMessage(error);
       }
-    
+    } catch (error) {
+      setSuccessAlert(false);
+      setFailureMessageBool(true);
+      setFailureMessage(error);
+    }
   }
 
   return (
     <div>
-        {successAlert ? (
+      {successAlert ? (
         <div class="notification is-primary">
           Successfully updated information!!!
         </div>
@@ -83,6 +102,17 @@ export default function Profile() {
       <div class="has-text-centered mt-3">
         <img src={imgURL} width="250px" height="250px" />
       </div>
+      <div class="columns is-centered mt-5">
+      <div class="file">
+          <label class="file-label">
+            <input class="file-input" type="file" name="profile-pic" onChange={changeHandler}/>
+            <span class="file-cta">
+              <span class="file-label">Choose a file…</span>
+            </span>
+          </label>
+        </div>
+      </div>
+      
       <div class="field mx-6 mt-3">
         <label class="label">First Name:</label>
         <div class="control ">
