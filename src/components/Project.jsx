@@ -4,6 +4,11 @@ export default function Project(props) {
   return (
     <div>
       <div class="card mx-6 mt-4">
+      <header class="card-header">
+        <p class="card-header-title is-centered">
+          {props.title}
+        </p>
+      </header>
         <div class="card-content">
           <div class="media">
             <div class="media-left">
