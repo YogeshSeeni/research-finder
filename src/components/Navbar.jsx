@@ -24,6 +24,9 @@ export default function Navbar() {
       <a class="navbar-item" href="/profile">
         Profile
       </a>
+      <a class="navbar-item" href="/projects">
+        Projects
+      </a>
     </div>
     
     <div class="navbar-start">
