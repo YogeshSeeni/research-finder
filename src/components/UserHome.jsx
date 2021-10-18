@@ -11,8 +11,9 @@ export default function UserHome(props) {
   const history = new useHistory();
 
   const [chatId, setChatId] = useState('sadasdsadadqwdqwd');
+  const [name, setName] = useState('');
 
-  async function handleStartChat(otherUser) {
+  async function handleStartChat(otherUser, otherName) {
     const resp = await axios ({
        method:"post",
        url: "https://treasurehacks2021.pythonanywhere.com/v1/chat/id",
@@ -27,6 +28,8 @@ export default function UserHome(props) {
     });
     if (resp.data.success){
       setChatId(resp.data.json.chat_id);
+      setName(otherName);
+      console.log(name)
     }
   }
 
@@ -41,7 +44,7 @@ export default function UserHome(props) {
       <div class="media-content">
         <div class="content">
           <br></br>
-          <Chat chat_id = {chatId} sender={cookies.get("uuid")} id_token={cookies.get("id_token")}/>
+          <Chat name={name} chat_id = {chatId} sender={cookies.get("uuid")} id_token={cookies.get("id_token")}/>
         </div>
         <nav class="level is-mobile">
           <div class="level-left">
